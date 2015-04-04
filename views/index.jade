@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Witamy na #{title}
+  
+  script(src='/javascripts/libs/ace/ace.js')
+  script(src='/javascripts/editor.js')
+  script(src='/javascripts/codding_box.js')
+
+  #one.box
+    include ./includes/editor_one.jade
+  #two.box
+    include ./includes/editor_two.jade
+  #three.box
+    include ./includes/tdd_mon.jade
+  #four.box
+    include ./includes/tests.jade
