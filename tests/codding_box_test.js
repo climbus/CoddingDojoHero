@@ -1,5 +1,6 @@
-describe("codding box", function() {
 
+describe("codding box", function() {
+    
     it("should load editor", function() {
         var element = document.createElement("div");
         var box = new CoddingBox(element);
@@ -47,7 +48,7 @@ describe("codding box", function() {
         expect(element.innerHTML).toMatch(filename);
     });
 
-    it("should be button", function() {
+    it("should has button", function() {
         var filename = "example.txt";
         var element = document.createElement("div");
         var box = new CoddingBox(element, filename);

@@ -10,6 +10,7 @@ var CoddingBox = function(element, filename) {
     
     var h1 = document.createElement("h1");
     h1.innerText = filename;
+    
     var button = document.createElement("button");
     button.innerText = "Zapisz";
    
