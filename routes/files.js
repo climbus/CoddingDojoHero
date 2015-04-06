@@ -3,7 +3,7 @@ var fs = require("fs");
 
 var router = express.Router();
 
-var fileDir = "data/";
+var fileDir = "public/data/";
 
 //var bodyParser = require('body-parser');
 //var multer = require('multer');

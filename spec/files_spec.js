@@ -2,7 +2,7 @@
 var request = require('request');
 var fs = require("fs");
 
-var fileDir = "data/";
+var fileDir = "public/data/";
 
 describe("files", function() {
     it("should respond with file content", function(done) {

@@ -60,7 +60,7 @@ describe("codding box", function() {
     it("should has button", function() {
         var filename = exampleFileName;
         var box = new CoddingBox(element, filename);
-        expect(element.innerHTML).toMatch("<button>");
+        expect(element.innerHTML).toMatch("<button");
     });
 
     it("button should be clicking and saving content", function() {
@@ -68,5 +68,18 @@ describe("codding box", function() {
         var box = new CoddingBox(element, filename);
         $(element.getElementsByTagName("button")[0]).click();
         expect(jQuery.post.calls.any()).toBe(true);
+    });
+
+    it("should be two editors on page", function() {
+        var element2 = document.createElement("div");
+        var filename1 = "example.txt";
+        var filename2 = "example2.txt";
+        var box1 = new CoddingBox(element, filename1);
+        var box2 = new CoddingBox(element2, filename2);
+        document.body.appendChild(element);
+        document.body.appendChild(element2);
+        expect(document.body.innerHTML).toMatch(filename1);
+        expect(document.body.innerHTML).toMatch(filename2);
+
     });
 });

@@ -1,16 +1,42 @@
 body {
-  padding: 50px;
+  padding: 10px;
+  margin: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   overflow: hidden;
 }
 
 div.box {
-    width: 50%;
-    height: 300px;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+    top: -30px;
 }
 
 div#editorOne {
     width: 100%;
     height: 100%;
     font: 25px;
+}
+
+#four iframe {
+    width: 100%;
+    height: 100%;
+}
+
+#three, #four {
+    top: 0px;
+    height:800px;
+}
+
+#one, #two {
+  top: -30px;
+  position: relative;
+}
+
+.maximize {
+  position: absolute;
+  width: 100%
+  height: 100%;
+  top: 0px;
+  left: 0px;
 }
