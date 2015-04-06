@@ -80,6 +80,5 @@ describe("codding box", function() {
         document.body.appendChild(element2);
         expect(document.body.innerHTML).toMatch(filename1);
         expect(document.body.innerHTML).toMatch(filename2);
-
     });
 });
