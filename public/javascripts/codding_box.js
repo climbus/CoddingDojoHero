@@ -1,21 +1,10 @@
 
 var CoddingBox = function(element, filename) {
-
-    if (typeof(element) == "string") {
-        element = document.getElementById(element);
-    }
+    GenericBox.call(this, element, filename);
 
     var editorElement = document.createElement("div");
-    editorElement.id = element.id + "Editor";
-    var h1 = document.createElement("ul");
-    h1.className = "nav nav-tabs";
-    var title = document.createElement("li");
-    title.className = "active";
-    h1.appendChild(title);
-    var a = document.createElement("a");
-    a.innerText = filename;
-    title.appendChild(a);
-
+    editorElement.id = this.element.id + "Editor";
+    
     var button = document.createElement("button");
     button.innerText = "Zapisz";
     button.className = "btn btn-default"
@@ -34,28 +23,28 @@ var CoddingBox = function(element, filename) {
         }
     });
 
-    element.appendChild(button);
-    element.appendChild(h1);
-    element.appendChild(editorElement);
+    this.element.insertBefore(button, this.element.childNodes[0]);
+    this.element.appendChild(editorElement);
     
 
-    $(editorElement).width($(element).width());
-    $(editorElement).height($(element).height()-$(h1).height());
+    $(editorElement).width($(this.element).width());
+    $(editorElement).height($(this.element).height());
     $(button).css({
         "top": $(button).outerHeight(),
-        "left": $(element).width() - $(button).outerWidth(),
+        "left": $(this.element).width() - $(button).outerWidth(),
         "position": "relative"
     });
     
-    var editor = new Editor(editorElement);
+    editor = new Editor(editorElement);
+    console.log(this.editor);
     editorElement.style.fontSize='20px';
 
     jQuery.get("/files/?name=" + filename, function(data) {
         editor.setValue(data, -1);
     });
 
-    return {
-        editor: editor,
-        save: save
-    }
+    this.editor = editor;
+    this.save = save;
 }
+
+CoddingBox.prototype = Object.create(GenericBox.prototype);

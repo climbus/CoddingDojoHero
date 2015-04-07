@@ -3,14 +3,22 @@ var GenericBox = function(element, title) {
         element = document.getElementById(element);
     }
 
-    var h1 = document.createElement("ul");
-    h1.className = "nav nav-tabs";
+    this.element = element;
+    this.title = title;
+
+    var tab = document.createElement("ul");
+    tab.className = "nav nav-tabs";
     var titleElm = document.createElement("li");
     titleElm.className = "active";
-    h1.appendChild(titleElm);
+    tab.appendChild(titleElm);
     var a = document.createElement("a");
-    a.innerText = title;
+    a.innerText = this.title;
+    a.className = "titleElm";
     titleElm.appendChild(a);
 
-    element.appendChild(h1); 
+    element.appendChild(tab); 
+}
+
+GenericBox.prototype.setTitle = function(title) {
+    this.element.getElementsByClassName("titleElm")[0].innerText = title;
 }

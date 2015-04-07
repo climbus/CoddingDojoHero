@@ -81,4 +81,11 @@ describe("codding box", function() {
         expect(document.body.innerHTML).toMatch(filename1);
         expect(document.body.innerHTML).toMatch(filename2);
     });
+
+    it("should set title", function() {
+        var title = "Example title";
+        var box = new CoddingBox(element);
+        box.setTitle(title);
+        expect(element.innerHTML).toMatch(title);
+    });
 });

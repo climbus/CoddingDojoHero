@@ -5,6 +5,8 @@ describe("fizzbuzz", function() {
     });
     
     it("should return buzz on 5", function() {
-        expect(true).toBe(true);
+        result = FizzBuzz.getResult(5);
+        expect(result).toBe("buzz");
     });
+    
 });

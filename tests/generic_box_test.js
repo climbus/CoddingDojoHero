@@ -17,4 +17,10 @@ describe("generic box", function() {
         expect(element.innerHTML).toMatch(title);
     });
 
+    it("should set title", function() {
+        var title = "Example title";
+        var box = new GenericBox(element);
+        box.setTitle(title);
+        expect(element.innerHTML).toMatch(title);
+    });
 });

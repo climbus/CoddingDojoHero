@@ -17,11 +17,19 @@ module.exports = function(grunt) {
         specs: "tests/**/*.js",
         vendor: "public/javascripts/libs/**/*.js"
       }
-    }
+    },
+    jasmine_nodejs: {
+      pages: {
+        specs: ["spec/**",],
+      }
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-jasmine-node');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-jasmine-nodejs');
 
   grunt.registerTask('test', ['jasmine', 'jasmine_node']);
 };
