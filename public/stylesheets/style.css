@@ -28,7 +28,7 @@ div#editorOne {
     height:800px;
 }
 
-#one, #two {
+#one {
   top: -30px;
   position: relative;
 }

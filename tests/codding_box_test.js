@@ -6,10 +6,12 @@ describe("codding box", function() {
 
     beforeEach(function() {
         spyOn(jQuery, "get").and.callFake(function(filename, callback) {
+            expect(filename).toMatch("example");
             callback(exampleContent);
         });
 
         spyOn(jQuery, "post").and.callFake(function(filename, data, callback) {
+            expect(filename).toMatch(exampleFileName);
             expect(data.data).toBe(exampleContent);
         });
         

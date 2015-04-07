@@ -52,6 +52,20 @@ describe("main page", function() {
         });
     });
 
+    it("should save file", function(done) {
+      var driver = this.driver;
+      var exampleText = "Testing text";
+      this.driver.executeScript('editorOne.editor.setValue("' + exampleText + '");').then(function() {
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/button')).click();
+        driver.wait(function() {
+          driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
+            expect(text).toBe(exampleText);
+            done(); 
+          }, 1000);
+        });
+      });
+    });
+
     afterAll(function(done) {
         this.driver.quit().then(function() {
           done();

@@ -31,5 +31,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-jasmine-nodejs');
 
-  grunt.registerTask('test', ['jasmine', 'jasmine_node']);
+  grunt.registerTask('test', ['jasmine', 'jasmine_nodejs']);
 };
