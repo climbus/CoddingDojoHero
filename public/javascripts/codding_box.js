@@ -36,7 +36,6 @@ var CoddingBox = function(element, filename) {
     });
     
     editor = new Editor(editorElement);
-    console.log(this.editor);
     editorElement.style.fontSize='20px';
 
     jQuery.get("/files/?name=" + filename, function(data) {
@@ -48,3 +47,11 @@ var CoddingBox = function(element, filename) {
 }
 
 CoddingBox.prototype = Object.create(GenericBox.prototype);
+
+CoddingBox.prototype.loadFile = function(filename) {
+    //var editor = this.editor;
+    jQuery.get("/files/?name=" + filename, function(data) {
+         this.editor.setValue(data, -1);
+    });
+    this.setTitle(filename);
+}

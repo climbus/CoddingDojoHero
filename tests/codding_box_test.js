@@ -1,4 +1,3 @@
-
 describe("codding box", function() {
     var exampleFileName = "example.txt";
     var exampleContent = "Example";
@@ -34,10 +33,18 @@ describe("codding box", function() {
         expect(box.editor).toBeDefined();
     });
 
-    it("should load file", function() {
+    it("should load file on start", function() {
         
         var filename = exampleFileName;
         var box = new CoddingBox(element, filename);
+        expect(box.editor.getValue()).toMatch(exampleContent);
+    });
+
+    it("should load file on demand", function() {
+        
+        var filename = exampleFileName;
+        var box = new CoddingBox(element);
+        box.loadFile(filename);
         expect(box.editor.getValue()).toMatch(exampleContent);
     });
 
