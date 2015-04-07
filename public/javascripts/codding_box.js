@@ -2,6 +2,8 @@
 var CoddingBox = function(element, filename) {
     GenericBox.call(this, element, filename);
 
+    this.filename = filename;
+
     var editorElement = document.createElement("div");
     editorElement.id = this.element.id + "Editor";
     
@@ -9,12 +11,8 @@ var CoddingBox = function(element, filename) {
     button.innerText = "Zapisz";
     button.className = "btn btn-default"
    
-    var save = function() {
-        jQuery.post("/files/?name=" + filename, {data: editor.getValue()}, function(data) {
-            return true;
-        });
-    }
-    
+   
+    var save = this.save;
     $(button).click(function(elm) {
         save();
         var frame = document.getElementById("testFrame");
@@ -43,15 +41,22 @@ var CoddingBox = function(element, filename) {
     });
 
     this.editor = editor;
-    this.save = save;
 }
 
 CoddingBox.prototype = Object.create(GenericBox.prototype);
 
+CoddingBox.prototype.constructor = CoddingBox;
+
 CoddingBox.prototype.loadFile = function(filename) {
-    //var editor = this.editor;
+    var editor = this.editor;
     jQuery.get("/files/?name=" + filename, function(data) {
-         this.editor.setValue(data, -1);
+         editor.setValue(data, -1);
     });
     this.setTitle(filename);
+}
+
+CoddingBox.prototype.save = function() {
+    jQuery.post("/files/?name=" + this.filename, {data: this.editor.getValue()}, function(data) {
+        return true;
+    });
 }
