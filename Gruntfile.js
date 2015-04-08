@@ -1,16 +1,6 @@
 
 module.exports = function(grunt) {
   grunt.initConfig({
-    jasmine_node: {
-      options: {
-        forceExit: true,
-        match: '.',
-        matchall: false,
-        extensions: 'js',
-        specNameMatcher: 'spec'
-      },
-      all: ['spec/']
-    },
     jasmine: {
       src: ["public/javascripts/generic_box.js", "public/javascripts/editor.js", "public/javascripts/codding_box.js"],
       options: {
@@ -24,12 +14,30 @@ module.exports = function(grunt) {
         specs: ["spec/**",],
       }
     },
+    express: {
+      dev: {
+        options: {
+          script: 'dev.js',
+          port: 3000,
+          background: false,
+          debug: true
+        }
+      },
+      test: {
+        options: {
+          script: 'test.js',
+          port: 3000,
+          background: true
+        }
+      },
+    },
 
   });
 
   grunt.loadNpmTasks('grunt-contrib-requirejs');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-jasmine-nodejs');
+  grunt.loadNpmTasks('grunt-express-server');
 
-  grunt.registerTask('test', ['jasmine', 'jasmine_nodejs']);
+  grunt.registerTask('test', ['express:dev', 'jasmine', 'jasmine_nodejs']);
 };

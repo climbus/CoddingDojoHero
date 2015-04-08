@@ -1,7 +1,5 @@
 
 var webdriver = require('selenium-webdriver');
-
-
 var fs = require('fs');
 
 describe("main page", function() {
@@ -25,18 +23,13 @@ describe("main page", function() {
     });
 
     it("should respond with filenames", function(done) {
-      // TODO: add test files
-      var filenames = ["main_file.js", "test_file.js"];
-      var found = 0;
-      for (var i in filenames) {
-        var elm = this.driver.isElementPresent(webdriver.By.linkText(filenames[i])).then(function(present) {
-          expect(present).toBe(true);
-          found += 1;
-          if (found === filenames.length) {
+
+      this.driver.isElementPresent(webdriver.By.linkText("main_file.js"))
+        .then(function(present) {
+            expect(present).toBe(true);
             done();
-          }
-        });
-      }
+      });
+      
     });
     it("should respond with test results", function(done) {
       this.driver.isElementPresent(webdriver.By.id("testFrame")).then(function(elm) {
@@ -64,6 +57,17 @@ describe("main page", function() {
           }, 1000);
         });
       });
+    });
+
+    it("should change dir", function(done) {
+      var dirName = "test_data";
+      var exampleText = "Text in test data";
+
+      this.driver.get('http://localhost:3000/?dir=' + dirName);
+      this.driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
+          expect(text).toBe(exampleText);
+          done();
+      }); 
     });
 
     afterAll(function(done) {

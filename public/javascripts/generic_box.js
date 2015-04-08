@@ -20,5 +20,5 @@ var GenericBox = function(element, title) {
 }
 
 GenericBox.prototype.setTitle = function(title) {
-    this.element.getElementsByClassName("titleElm")[0].innerText = title;
+    this.element.getElementsByClassName("titleElm")[0].innerHTML = title;
 }
