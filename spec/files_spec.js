@@ -20,9 +20,8 @@ function createDir(name) {
 }
 
 describe("files", function() {
-    beforeAll(function(done) {
+    beforeEach(function(done) {
       createDir(fileDir);
-
       done();
     });
 
@@ -47,7 +46,7 @@ describe("files", function() {
           }, function(err, data) {
             expect(data).toBe(content);
             done();
-          })   
+          });   
         });
     });
 
@@ -68,10 +67,11 @@ describe("files", function() {
       });
     });
 
+
     it("should change file dir on post", function(done) {
       
       var newDirName = "test_data2";
-      var fullName = "public/" + dirName + "/" + fileName;
+      var fullName = "public/" + newDirName + "/" + fileName;
       var content2 = "New content";
 
       createDir("public/" + newDirName);
@@ -79,17 +79,17 @@ describe("files", function() {
       request.post({
         url: "http://127.0.0.1:3000/files/?name=" + fileName + "&dir=" + newDirName,
         form: {"data": content2}
-      }, function(error, response, body){
+        }, function(error, response, body) {
           expect(body).toBe("OK");
           fs.readFile(fullName, {
             encoding: "utf-8"
-          }, function(err, data) {
-            expect(data).toBe(content2);
-            fs.unlink("public/" + newDirName, function(err) {
-              done();
-            }
-          })   
-        });
+            }, function(err, data) {
+              expect(data).toBe(content2);
+              fs.unlink("public/" + newDirName, function(err) {
+                done();
+              });
+          });
+      });  
     });
 
     afterEach(function(done) {

@@ -59,17 +59,6 @@ describe("main page", function() {
       });
     });
 
-    it("should change dir", function(done) {
-      var dirName = "test_data";
-      var exampleText = "Text in test data";
-
-      this.driver.get('http://localhost:3000/?dir=' + dirName);
-      this.driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
-          expect(text).toBe(exampleText);
-          done();
-      }); 
-    });
-
     afterAll(function(done) {
         this.driver.quit().then(function() {
           done();

@@ -18,7 +18,7 @@ function createDir(name) {
 /* GET file content. */
 router.get('/', function(req, res, next) {
   var fileDir = req.app.get("data_dir");
-  console.log(fileDir);
+  
   var fileName = req.query.name;
   var dirName = req.query.dir;
   var fullName;
@@ -35,6 +35,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  var fileDir = req.app.get("data_dir");
   var fileName = req.query.name;
   var dirName = req.query.dir;
   var fullName;
