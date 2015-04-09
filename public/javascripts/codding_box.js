@@ -33,7 +33,6 @@ CoddingBox.prototype.loadFile = function(filename, dirname) {
 }
 
 CoddingBox.prototype.save = function() {
-    
     var url = "/files/?name=" + this.filename;
     
     if (this.dirname != undefined) {
@@ -43,6 +42,10 @@ CoddingBox.prototype.save = function() {
     jQuery.post(url, {data: this.editor.getValue()}, function(data) {
         return true;
     });
+  
+    if (this.onsave != undefined) {
+        this.onsave();
+    }
 }
 
 CoddingBox.prototype.createEditor = function() {
@@ -51,7 +54,7 @@ CoddingBox.prototype.createEditor = function() {
     $(editorElement).width($(this.element).width());
     $(editorElement).height($(this.element).height());
 
-    editor = new Editor(editorElement);
+    editor = new Editor(editorElement, "", {save: this.save}, this);
     editorElement.style.fontSize='20px';
 
     this.editor = editor;
@@ -66,12 +69,6 @@ CoddingBox.prototype.createButtons = function() {
     var box = this;
     $(button).click(function(elm) {
         box.save();
-
-        // change to listener
-        var frame = document.getElementById("testFrame");
-        if (frame) {
-            frame.contentWindow.location.reload(true);
-        }
     });
 
     this.element.insertBefore(button, this.element.childNodes[0]);

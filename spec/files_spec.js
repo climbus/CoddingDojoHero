@@ -93,8 +93,14 @@ describe("files", function() {
     });
 
     afterEach(function(done) {
-      fs.unlink(fileDir, function(err) {
-        done();
-      });
+      try {
+        if (fs.existsSync(fileDir + fileName)) {
+          fs.unlinkSync(fileDir + fileName);
+        }
+        fs.unlinkSync(fileDir);
+      } catch (err) {
+
+      }
+      done();
     });
 });

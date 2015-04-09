@@ -1,2 +1,8 @@
 script(type='text/javascript').
     var editorOne = new CoddingBox("one", "main_file.js");
+    editorOne.onsave = function() {
+       var frame = document.getElementById("testFrame");
+       if (frame) {
+         frame.contentWindow.location.reload(true);
+       }
+     };

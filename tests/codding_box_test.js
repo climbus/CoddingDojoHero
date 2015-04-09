@@ -100,6 +100,27 @@ describe("codding box", function() {
             box.setTitle(title);
             expect(element.innerHTML).toMatch(title);
         });
+
+        // it ("should have save shortcut", function() {
+        //     var ev = document.createEvent("KeyboardEvent");
+        //     ev.initKeyboardEvent("keypress", true, true, window, true, false, false, false, 83, 83);
+        //     var element = document.createElement('div');
+        //     var box = new CoddingBox(element);
+        //     document.body.appendChild(element);
+        //     spyOn(box, "save");
+
+        //     element.getElementsByTagName("textarea")[0].dispatchEvent(ev);
+        //     expect(box.save.calls.any()).toEqual(true);
+        //  });
+         it ("should have onsave listener", function() {
+            var filename = exampleFileName;
+            var box = new CoddingBox(element, filename);
+            box.onsave = function() {}
+            spyOn(box, "onsave");
+            box.save();
+            expect(box.onsave.calls.any()).toEqual(true);
+         });
+         
     });
 
     describe("with filedir", function() {
@@ -128,5 +149,7 @@ describe("codding box", function() {
             var box = new CoddingBox(element, filename, dirname);
             box.save();
         });
+
+
     });
 });
