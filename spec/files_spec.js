@@ -60,6 +60,7 @@ describe("files", function() {
       fs.writeFile(fullName, content2, function(err) {
         request("http://127.0.0.1:3000/files/?name=" + fileName + "&dir=" + newDirName, function(error, response, body){
           expect(body).toMatch(content2);
+          fs.unlinkSync(fullName);
           done();
         });
       });
@@ -82,6 +83,7 @@ describe("files", function() {
             encoding: "utf-8"
             }, function(err, data) {
               expect(data).toBe(content2);
+              fs.unlinkSync(fullName);
               done();
           });
       });  

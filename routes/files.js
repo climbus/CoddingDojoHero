@@ -2,7 +2,6 @@ var express = require('express');
 var fs = require("fs");
 
 var router = express.Router();
-var app = require("../app");
 
 function createDir(name) {
   if(!fs.existsSync(name)){
@@ -12,7 +11,7 @@ function createDir(name) {
          response.send("ERROR! Can't make the directory! \n");    // echo the result back
        }
      });   
- }
+  }
 }
 
 /* GET file content. */
@@ -41,12 +40,11 @@ router.post('/', function(req, res, next) {
   var fullName;
 
   if (dirName !== undefined) {
+    createDir("public/" + dirName);
     fullName = "public/" + dirName + "/" + fileName;
   } else {
     fullName = fileDir + fileName;
   }
-
-  createDir("public/" + dirName);
 
   fs.writeFile(fullName, req.body.data, function(err) {
     if (!err) {
