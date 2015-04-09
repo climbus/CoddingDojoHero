@@ -23,4 +23,46 @@ describe("generic box", function() {
         box.setTitle(title);
         expect(element.innerHTML).toMatch(title);
     });
+
+    it("should maximize", function() {
+        var box = new GenericBox(element);
+        box.maximize();
+    });
+
+    it("should minimize", function() {
+        var box = new GenericBox(element);
+        box.minimize();
+    });
+
+    it("should has toolbar", function() {
+        expect(element.innerHTML).toMatch("toolbar");
+    });
+
+    it("should has maximize button", function() {
+
+    });
+
+    it("button maximize should maximize box", function() {
+
+    });
+
+    it("should has minimize button", function() {
+
+    });
+
+    it("button minimize should maximize box", function() {
+
+    });    
+
+    it("should normalize", function() {
+
+    });
+
+    it("when maximized has normalize button", function() {
+
+    });
+
+    it("when minimized has normalize button", function() {
+
+    });
 });
