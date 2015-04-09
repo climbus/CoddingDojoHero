@@ -16,7 +16,7 @@ function createDir(name) {
          response.send("ERROR! Can't make the directory! \n");    // echo the result back
        }
      });   
- }
+  }
 }
 
 describe("files", function() {
@@ -60,13 +60,10 @@ describe("files", function() {
       fs.writeFile(fullName, content2, function(err) {
         request("http://127.0.0.1:3000/files/?name=" + fileName + "&dir=" + newDirName, function(error, response, body){
           expect(body).toMatch(content2);
-          fs.unlink("public/" + newDirName, function(err) {
-            done();
-          });
+          done();
         });
       });
     });
-
 
     it("should change file dir on post", function(done) {
       
@@ -85,21 +82,14 @@ describe("files", function() {
             encoding: "utf-8"
             }, function(err, data) {
               expect(data).toBe(content2);
-              fs.unlink("public/" + newDirName, function(err) {
-                done();
-              });
+              done();
           });
       });  
     });
 
     afterEach(function(done) {
-      try {
-        if (fs.existsSync(fileDir + fileName)) {
-          fs.unlinkSync(fileDir + fileName);
-        }
-        fs.unlinkSync(fileDir);
-      } catch (err) {
-
+      if (fs.existsSync(fileDir + fileName)) {
+        fs.unlinkSync(fileDir + fileName);
       }
       done();
     });
