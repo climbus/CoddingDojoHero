@@ -22,3 +22,17 @@ var GenericBox = function(element, title) {
 GenericBox.prototype.setTitle = function(title) {
     this.element.getElementsByClassName("titleElm")[0].innerHTML = title;
 }
+
+GenericBox.prototype.maximize = function() {
+    $(this.element).css({
+        "position": "absolute",
+        "z-index": 100
+    });
+
+    $(this.element).animate({
+        "top": "0px",
+        "left": "0px",
+        "width": "100%",
+        "height": "100%"
+    }, 300);
+}

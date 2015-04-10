@@ -24,14 +24,26 @@ describe("generic box", function() {
         expect(element.innerHTML).toMatch(title);
     });
 
-    it("should maximize", function() {
+    it("should maximize", function(done) {
         var box = new GenericBox(element);
+        document.body.appendChild(element);
+        $(element).css({"width": "10px", "height": "10px", "position": "relative"});
         box.maximize();
+        setTimeout(function() {
+            expect($(element).width()).toEqual(window.innerWidth);
+            expect($(element).height()).toEqual(window.innerHeight);
+            done();
+        }, 500);
     });
 
     it("should minimize", function() {
         var box = new GenericBox(element);
         box.minimize();
+    });
+
+    it("should normalize", function() {
+       var box = new GenericBox(element);
+       box.normalize(); 
     });
 
     it("should has toolbar", function() {
@@ -54,9 +66,6 @@ describe("generic box", function() {
 
     });    
 
-    it("should normalize", function() {
-
-    });
 
     it("when maximized has normalize button", function() {
 
@@ -65,4 +74,6 @@ describe("generic box", function() {
     it("when minimized has normalize button", function() {
 
     });
+
+
 });

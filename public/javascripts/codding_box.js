@@ -51,8 +51,9 @@ CoddingBox.prototype.save = function() {
 CoddingBox.prototype.createEditor = function() {
     var editorElement = document.createElement("div");
 
-    $(editorElement).width($(this.element).width());
-    $(editorElement).height($(this.element).height());
+    $(editorElement).css({width: "100%", height: "100%"});
+    //$(editorElement).width($(this.element).width());
+    //$(editorElement).height($(this.element).height());
 
     editor = new Editor(editorElement, "", {save: this.save}, this);
     editorElement.style.fontSize='20px';
