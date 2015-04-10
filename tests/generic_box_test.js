@@ -128,7 +128,7 @@ describe("generic box", function() {
     it("should has minimize button", function() {
         var box = new GenericBox(element);
         document.body.appendChild(element);
-        expect(Boolean($("button:contains('Minimalizuj')"))).toBe(true);
+        expect($("button:contains('Minimalizuj')").length).toBeGreaterThan(0);
     });
 
     it("button minimize should minimize box", function() {
@@ -141,14 +141,117 @@ describe("generic box", function() {
         expect(box.minimize.calls.any()).toBe(true);
     });    
 
-
     it("when maximized has normalize button", function() {
-
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
+        box.maximize();
+        
+        expect($("button:contains('Zmniejsz')").length).toBeGreaterThan(0);
     });
 
     it("when minimized has normalize button", function() {
-
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
+        box.maximize();
+        
+        expect($("button:contains('Powiększ')").length).toBeGreaterThan(0);
     });
 
+    it("when maximized can normalize", function(done) {
+        
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
 
+        var normalWidth = $(element).width();
+        var normalHeight = $(element).height();
+
+        box.maximize();
+        setTimeout(function() {  
+            box.normalize();
+            setTimeout(function() {
+                expect($(element).width()).toEqual(normalWidth);
+                expect($(element).height()).toEqual(normalHeight);
+                done();
+            }, 500);
+        }, 500);   
+    });
+
+    it("when minimized has normalize button", function(done) {
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
+
+        var normalWidth = $(element).width();
+        var normalHeight = $(element).height();
+
+        box.minimize();
+        setTimeout(function() {  
+            box.normalize();
+            setTimeout(function() {
+                expect($(element).width()).toEqual(normalWidth);
+                expect($(element).height()).toEqual(normalHeight);
+                done();
+            }, 500);
+        }, 500);
+    });
+
+    it("when normalize has previous button", function(done) {
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
+
+        var expectations = 0;
+
+        box.minimize();
+        setTimeout(function() {  
+            box.normalize();
+            setTimeout(function() {
+                expect($("button:contains('Minimalizuj')").length).toBeGreaterThan(0);
+                expectations += 1;
+                if (expectations === 2) {
+                    done();
+                }
+            }, 200);
+        }, 200);
+
+        box.maximize();
+        setTimeout(function() {  
+            box.normalize();
+            setTimeout(function() {
+                expect($("button:contains('Maksymalizuj')").length).toBeGreaterThan(0);
+                expectations += 1;
+                if (expectations === 2) {
+                    done();
+                }
+            }, 200);
+        }, 200);
+    });
+
+    it("button normalize after minimize should normalize box", function(done) {
+        var box = new GenericBox(element);
+        spyOn(box, "normalize");
+
+        document.body.appendChild(element);
+
+        $("button:contains('Minimalizuj')").click();
+
+        setTimeout(function(){
+            $("button:contains('Powiększ')").click();
+            expect(box.normalize.calls.any()).toBe(true);
+            done();
+        }, 500);
+    });   
+
+    it("button normalize after maximize should normalize box", function(done) {
+        var box = new GenericBox(element);
+        spyOn(box, "normalize");
+
+        document.body.appendChild(element);
+
+        $("button:contains('Maksymalizuj')").click();
+
+        setTimeout(function(){
+            $("button:contains('Zmniejsz')").click();
+            expect(box.normalize.calls.any()).toBe(true);
+            done();
+        }, 500);
+    });    
 });

@@ -145,6 +145,40 @@ describe("main page", function() {
       });
     });
 
+    it ("should normalize when maximized", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+        var normalSize = size;
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+        driver.sleep(500).then(function() {
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zmniejsz")]')).click();
+          driver.sleep(500).then(function() {
+            driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+              expect(size.width).toEqual(normalSize.width);
+              expect(size.height).toEqual(normalSize.height);
+              done();
+            });
+          })
+        });
+      });
+    });
+
+    it ("should normalize when minimized", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+        var normalSize = size;
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+        driver.sleep(500).then(function() {
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Powiększ")]')).click();
+          driver.sleep(500).then(function() {
+            driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+              expect(size.width).toEqual(normalSize.width);
+              expect(size.height).toEqual(normalSize.height);
+              done();
+            });
+          })
+        });
+      });
+    });
+    
     afterEach(function() {
       // delete test files
       for (var i in files) {

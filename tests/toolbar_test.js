@@ -61,4 +61,28 @@ describe("toolbar", function() {
         var res = tb.addButton(label);
         expect(res.tagName).toBe("BUTTON");
     })
+
+    it("should replace button", function(){
+        var label1 = "Button1";
+        var label2 = "Button2";
+
+        var tb = new Toolbar();
+        tb.addButton(label1);
+        tb.replaceButton(label1, label2, {});
+        var res = tb.render();
+        expect(res.innerHTML).toMatch(label2);
+        expect(res.innerHTML).not.toMatch(label1);
+    });
+
+     it("should return button", function(){
+        var label1 = "Button1";
+        var label2 = "Button2";
+
+        var tb = new Toolbar();
+        tb.addButton(label1);
+        tb.addButton(label2);
+        var button = tb.getButton(label1);
+
+        expect(button[0]).toEqual(label1);
+    });
 });

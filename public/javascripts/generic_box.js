@@ -49,6 +49,7 @@ GenericBox.prototype.setNormalSize = function() {
 }
 
 GenericBox.prototype.maximize = function(callback) {
+    this.oldButton = this.toolbar.getButton("Maksymalizuj");
     this.setNormalSize();
     $(this.element).css({
         "position": "absolute",
@@ -61,18 +62,49 @@ GenericBox.prototype.maximize = function(callback) {
         "width": "99%",
         "height": "99%"
     }, 300, callback);
+   
+    var box = this;
+    this.toolbar.replaceButton("Maksymalizuj", "Zmniejsz", {
+        "callback": function() {
+            box.normalize();
+        },
+        "class_name": "btn btn-default"
+    });
 }
 
 GenericBox.prototype.minimize = function() {
+    this.oldButton = this.toolbar.getButton("Minimalizuj");
     this.setNormalSize();
     $(this.element).animate({
         "height": $(this.element).find(".nav-tabs").height()
     }, 300);
+    var box = this;
+    
+    this.toolbar.replaceButton("Minimalizuj", "Powiększ", {
+        "callback": function() {
+            box.normalize();
+        },
+        "class_name": "btn btn-default"
+    });
 }
 
 GenericBox.prototype.normalize = function() {
+    $(this.element).css({
+        "position": "relative",
+        "top": 0,
+        "left": 0
+    });
     $(this.element).animate({
         "width": this.normalWidth,
         "height": this.normalHeight
     }, 300);   
+    if (this.oldButton !== undefined) {
+        var label;
+        if (this.oldButton[0] === "Minimalizuj") {
+            label = "Powiększ";
+        } else {
+            label = "Zmniejsz";
+        }
+        this.toolbar.replaceButton(label, this.oldButton[0], this.oldButton[1]);
+    }
 }

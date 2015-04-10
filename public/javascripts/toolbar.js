@@ -14,13 +14,33 @@ Toolbar.prototype.addButton = function(label, options) {
     }
 
     if (options.position !== undefined) {
-        this.buttons.splice(options.position, 0, [label, options.callback]);
+        this.buttons.splice(options.position, 0, [label, options]);
         this.element.insertBefore(button, this.element.children[options.position]);
     } else {
         this.buttons.push([label, options.callback]);
         this.element.appendChild(button);
     }
     return button;
+}
+
+Toolbar.prototype.replaceButton = function(oldLabel, newLabel, options) {
+    var i;
+    for (i in this.buttons) {
+        if (this.buttons[i][0] === oldLabel) {
+            break;
+        }
+    }
+    this.previousButton = [this.buttons.pop(i), this.element.children[i]];
+    this.element.removeChild(this.element.children[i]);
+    this.addButton(newLabel, options, i);
+}
+
+Toolbar.prototype.getButton = function(label) {
+    for (var i in this.buttons) {
+        if (this.buttons[i][0] === label) {
+            return this.buttons[i];
+        }
+    }
 }
 
 Toolbar.prototype.render = function() {
