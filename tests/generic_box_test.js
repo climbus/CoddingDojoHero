@@ -36,14 +36,31 @@ describe("generic box", function() {
         }, 500);
     });
 
-    it("should minimize", function() {
+    it("should minimize", function(done) {
         var box = new GenericBox(element);
+        document.body.appendChild(element);
         box.minimize();
+        setTimeout(function() {
+            expect($(element).width()).toEqual($(element.parentElement).innerWidth());
+            expect($(element).height()).toEqual($(".nav-tabs").height());
+            done();
+        }, 500);
     });
 
-    it("should normalize", function() {
+    it("should normalize", function(done) {
        var box = new GenericBox(element);
+       document.body.appendChild(element);
+       box.setNormalSize();
+       var normalWidth = $(element).width();
+       var normalHeight = $(element).height();
+       $(element).width(10);
+       $(element).height(10);
        box.normalize(); 
+       setTimeout(function() {
+            expect($(element).width()).toEqual(normalWidth);
+            expect($(element).height()).toEqual(normalHeight);
+            done();
+        }, 500);
     });
 
     it("should has toolbar", function() {
@@ -51,6 +68,10 @@ describe("generic box", function() {
     });
 
     it("should has maximize button", function() {
+
+    });
+
+    it("should remember normal size", function() {
 
     });
 
