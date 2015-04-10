@@ -1,1 +1,1 @@
-Testing text
+var FizzBuzz = {}

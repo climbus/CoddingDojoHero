@@ -8,8 +8,7 @@ body {
 div.box {
     width: 100%;
     height: 400px;
-    margin-bottom: 30px;
-    top: -30px;
+    margin-bottom: 60px;
 }
 
 div#editorOne {
@@ -28,8 +27,7 @@ div#editorOne {
     height:800px;
 }
 
-#one {
-  top: -30px;
+#one, #two {
   position: relative;
 }
 
@@ -43,4 +41,21 @@ div#editorOne {
 
 .col-xs-6 {
   position: static;
+}
+
+.toolbar {
+  right: 0px;
+  position: absolute;
+}
+
+.toolbar button {
+  margin-left: 10px; 
+}
+
+.page-header {
+  margin-top: 0px;
+}
+
+.nav-tabs {
+  background: white;
 }

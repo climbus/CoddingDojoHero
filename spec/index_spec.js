@@ -31,11 +31,14 @@ function copyFiles(dirname) {
 
 describe("main page", function() {
 
+    var driver;
+
     beforeAll(function() {
       //prepare browser
       this.driver = new webdriver.Builder().
           withCapabilities(webdriver.Capabilities.chrome()).
           build();
+      driver = this.driver;
     });
 
     beforeEach(function(done) {
@@ -52,7 +55,7 @@ describe("main page", function() {
 
     it("should respond with title", function(done) {    
       this.driver.getTitle().then(function(title) {
-        expect(title).toBe("Coding Dojo");
+        expect(title).toMatch("Coding Dojo");
         done();
       })
     });
@@ -84,7 +87,7 @@ describe("main page", function() {
       var exampleText = "";
 
       this.driver.executeScript('editorOne.editor.setValue("' + exampleText + '");').then(function() {
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zapisz")]')).click();
 
         driver.sleep(1000).then(function() {
             driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
@@ -107,7 +110,7 @@ describe("main page", function() {
 
         driver.switchTo().window(current);
         driver.executeScript('editorOne.editor.setValue("");').then(function() {
-          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button')).click();
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zapisz")]')).click();
           driver.sleep(1000).then(function() {
             driver.switchTo().frame("testFrame");
             driver.isElementPresent(webdriver.By.className("failed")).then(function(present) {
@@ -115,6 +118,29 @@ describe("main page", function() {
               done();
             });
           });
+        });
+      });
+    });
+
+    it("should maximize window", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+      driver.sleep(1000).then(function() {
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+          driver.manage().window().getSize().then(function(wsize) {
+            expect(size.width).toBeGreaterThan(0.9 * wsize.width);
+            expect(size.height).toBeGreaterThan(0.9 * wsize.height);
+            done();
+          });
+        });
+      });
+    });
+
+    it("should minimize window", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+      driver.sleep(1000).then(function() {
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
+          expect(size.height).toBeLessThan(100);
+          done();
         });
       });
     });

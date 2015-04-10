@@ -67,12 +67,12 @@ CoddingBox.prototype.createButtons = function() {
         callback: function(elm) {
             box.save();
         }
+    }); 
+}
+
+CoddingBox.prototype.maximize = function() {
+    var box = this;
+    GenericBox.prototype.maximize.call(this, function() {
+        box.editor.resize();    
     });
-    
-    $(button).css({
-        "top": $(button).outerHeight(),
-        "left": $(this.element).width() - $(button).outerWidth(),
-        "position": "relative"
-    });
-    
 }

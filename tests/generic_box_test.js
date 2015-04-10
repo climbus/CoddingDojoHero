@@ -30,8 +30,33 @@ describe("generic box", function() {
         $(element).css({"width": "10px", "height": "10px", "position": "relative"});
         box.maximize();
         setTimeout(function() {
-            expect($(element).width()).toEqual(window.innerWidth);
-            expect($(element).height()).toEqual(window.innerHeight);
+            expect($(element).width()).toBeGreaterThan(window.innerWidth-20);
+            expect($(element).height()).toBeGreaterThan(window.innerHeight-20);
+            done();
+        }, 500);
+    });
+
+    it("should maximize one when two boxes", function(done) {
+        var element2 = document.createElement("div");
+        element2.id = "two";
+        element.id = "one";
+
+        var box1 = new GenericBox(element);
+        var box2 = new GenericBox(element2);
+
+        document.body.appendChild(element);
+        document.body.appendChild(element2);
+        
+        $(element).css({"width": "10px", "height": "10px", "position": "relative"});
+        $(element2).css({"width": "10px", "height": "10px", "position": "relative"});
+        
+        box1.maximize();
+
+        setTimeout(function() {
+            expect($(element).width()).toBeGreaterThan(window.innerWidth-20);
+            expect($(element).height()).toBeGreaterThan(window.innerHeight-20);
+            expect($(element2).width()).toBeLessThan(window.innerWidth-20);
+            expect($(element2).height()).toBeLessThan(window.innerHeight-20);
             done();
         }, 500);
     });
@@ -70,23 +95,50 @@ describe("generic box", function() {
     });
 
     it("should has maximize button", function() {
-
+        var found = false;
+        var box = new GenericBox(element);
+        for (var i in box.toolbar.element.childNodes) {
+            if (box.toolbar.element.childNodes[i].innerHTML === "Maksymalizuj") {
+                found = true;
+            }
+        }
+        expect(found).toBe(true);
     });
 
     it("should remember normal size", function() {
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
 
+        var width = $(element).width();
+        var height = $(element).height(); 
+        box.maximize()
+        expect(box.normalWidth).toEqual(width);
+        expect(box.normalHeight).toEqual(height);
     });
 
     it("button maximize should maximize box", function() {
+        var box = new GenericBox(element);
+        spyOn(box, "maximize");
 
+        document.body.appendChild(element);
+        $("button:contains('Maksymalizuj')").click();
+        expect(box.maximize.calls.any()).toBe(true);
     });
 
     it("should has minimize button", function() {
-
+        var box = new GenericBox(element);
+        document.body.appendChild(element);
+        expect(Boolean($("button:contains('Minimalizuj')"))).toBe(true);
     });
 
-    it("button minimize should maximize box", function() {
+    it("button minimize should minimize box", function() {
+        var box = new GenericBox(element);
+        spyOn(box, "minimize");
+        document.body.appendChild(element);
 
+        $("button:contains('Minimalizuj')").click();
+
+        expect(box.minimize.calls.any()).toBe(true);
     });    
 
 

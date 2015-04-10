@@ -9,6 +9,20 @@ var GenericBox = function(element, title) {
     this.element = element;
     this.title = title;
     this.toolbar = new Toolbar();
+
+    var box = this;
+    this.toolbar.addButton("Maksymalizuj", {
+        "callback": function() {
+            box.maximize();
+        },
+        "class_name": "btn btn-default"
+    });
+    this.toolbar.addButton("Minimalizuj", {
+        "callback": function() {
+            box.minimize();
+        },
+        "class_name": "btn btn-default"
+    });
     element.appendChild(this.toolbar.render());
     
     var tab = document.createElement("ul");
@@ -22,6 +36,7 @@ var GenericBox = function(element, title) {
     titleElm.appendChild(a);
 
     element.appendChild(tab); 
+
 }
 
 GenericBox.prototype.setTitle = function(title) {
@@ -33,7 +48,7 @@ GenericBox.prototype.setNormalSize = function() {
     this.normalHeight = $(this.element).height();
 }
 
-GenericBox.prototype.maximize = function() {
+GenericBox.prototype.maximize = function(callback) {
     this.setNormalSize();
     $(this.element).css({
         "position": "absolute",
@@ -41,11 +56,11 @@ GenericBox.prototype.maximize = function() {
     });
 
     $(this.element).animate({
-        "top": "0px",
-        "left": "0px",
-        "width": "100%",
-        "height": "100%"
-    }, 300);
+        "top": "10px",
+        "left": "10px",
+        "width": "99%",
+        "height": "99%"
+    }, 300, callback);
 }
 
 GenericBox.prototype.minimize = function() {

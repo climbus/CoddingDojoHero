@@ -78,7 +78,12 @@ describe("codding box", function() {
         it("button should be clicking and saving content", function() {
             var filename = exampleFileName;
             var box = new CoddingBox(element, filename);
-            $(element.getElementsByTagName("button")[0]).click();
+            for (var i in element.getElementsByTagName("button")) {
+                if (element.getElementsByTagName("button")[i].innerHTML == "Zapisz") {
+                    $(element.getElementsByTagName("button")[i]).click();
+                }    
+            }
+            
             expect(jQuery.post.calls.any()).toBe(true);
         });
 
@@ -112,15 +117,39 @@ describe("codding box", function() {
         //     element.getElementsByTagName("textarea")[0].dispatchEvent(ev);
         //     expect(box.save.calls.any()).toEqual(true);
         //  });
-         it ("should have onsave listener", function() {
+        it ("should have onsave listener", function() {
             var filename = exampleFileName;
             var box = new CoddingBox(element, filename);
             box.onsave = function() {}
             spyOn(box, "onsave");
             box.save();
             expect(box.onsave.calls.any()).toEqual(true);
-         });
+        });
          
+        it("should maximize one when two boxes", function(done) {
+            var element2 = document.createElement("div");
+            element2.id = "two";
+            element.id = "one";
+
+            var box1 = new CoddingBox(element);
+            var box2 = new CoddingBox(element2);
+
+            document.body.appendChild(element);
+            document.body.appendChild(element2);
+            
+            $(element).css({"width": "10px", "height": "10px", "position": "relative"});
+            $(element2).css({"width": "10px", "height": "10px", "position": "relative"});
+            
+            box1.maximize();
+
+            setTimeout(function() {
+                expect($(element).width()).toBeGreaterThan(window.innerWidth-20);
+                expect($(element).height()).toBeGreaterThan(window.innerHeight-20);
+                expect($(element2).width()).toBeLessThan(window.innerWidth-20);
+                expect($(element2).height()).toBeLessThan(window.innerHeight-20);
+                done();
+            }, 500);
+        });
     });
 
     describe("with filedir", function() {
