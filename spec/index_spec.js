@@ -84,7 +84,7 @@ describe("main page", function() {
       var exampleText = "";
 
       this.driver.executeScript('editorOne.editor.setValue("' + exampleText + '");').then(function() {
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/button')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button')).click();
 
         driver.sleep(1000).then(function() {
             driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
@@ -107,7 +107,7 @@ describe("main page", function() {
 
         driver.switchTo().window(current);
         driver.executeScript('editorOne.editor.setValue("");').then(function() {
-          driver.findElement(webdriver.By.xpath('//div[@id="one"]/button')).click();
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button')).click();
           driver.sleep(1000).then(function() {
             driver.switchTo().frame("testFrame");
             driver.isElementPresent(webdriver.By.className("failed")).then(function(present) {

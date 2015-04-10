@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     jasmine: {
-      src: ["public/javascripts/generic_box.js", "public/javascripts/editor.js", "public/javascripts/codding_box.js"],
+      src: ["public/javascripts/toolbar.js", "public/javascripts/generic_box.js", "public/javascripts/editor.js", "public/javascripts/codding_box.js"],
       options: {
         specs: "tests/**/*.js",
         vendor: "public/javascripts/libs/**/*.js",

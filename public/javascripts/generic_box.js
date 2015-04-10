@@ -8,7 +8,9 @@ var GenericBox = function(element, title) {
 
     this.element = element;
     this.title = title;
-
+    this.toolbar = new Toolbar();
+    element.appendChild(this.toolbar.render());
+    
     var tab = document.createElement("ul");
     tab.className = "nav nav-tabs";
     var titleElm = document.createElement("li");

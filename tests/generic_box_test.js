@@ -64,7 +64,9 @@ describe("generic box", function() {
     });
 
     it("should has toolbar", function() {
+        var box = new GenericBox(element);
         expect(element.innerHTML).toMatch("toolbar");
+        expect(box.toolbar).toBeDefined();
     });
 
     it("should has maximize button", function() {

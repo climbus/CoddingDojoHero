@@ -52,8 +52,6 @@ CoddingBox.prototype.createEditor = function() {
     var editorElement = document.createElement("div");
 
     $(editorElement).css({width: "100%", height: "100%"});
-    //$(editorElement).width($(this.element).width());
-    //$(editorElement).height($(this.element).height());
 
     editor = new Editor(editorElement, "", {save: this.save}, this);
     editorElement.style.fontSize='20px';
@@ -63,16 +61,13 @@ CoddingBox.prototype.createEditor = function() {
 }
 
 CoddingBox.prototype.createButtons = function() {
-    var button = document.createElement("button");
-    button.innerHTML = "Zapisz";
-    button.className = "btn btn-default"
-
     var box = this;
-    $(button).click(function(elm) {
-        box.save();
+    var button = this.toolbar.addButton("Zapisz", {
+        class_name: "btn btn-default",
+        callback: function(elm) {
+            box.save();
+        }
     });
-
-    this.element.insertBefore(button, this.element.childNodes[0]);
     
     $(button).css({
         "top": $(button).outerHeight(),
