@@ -17,7 +17,7 @@ Toolbar.prototype.addButton = function(label, options) {
         this.buttons.splice(options.position, 0, [label, options]);
         this.element.insertBefore(button, this.element.children[options.position]);
     } else {
-        this.buttons.push([label, options.callback]);
+        this.buttons.push([label, options]);
         this.element.appendChild(button);
     }
     return button;
@@ -30,9 +30,10 @@ Toolbar.prototype.replaceButton = function(oldLabel, newLabel, options) {
             break;
         }
     }
+    options.position = i;
     this.previousButton = [this.buttons.pop(i), this.element.children[i]];
     this.element.removeChild(this.element.children[i]);
-    this.addButton(newLabel, options, i);
+    this.addButton(newLabel, options);
 }
 
 Toolbar.prototype.getButton = function(label) {

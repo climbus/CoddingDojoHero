@@ -65,13 +65,23 @@ describe("toolbar", function() {
     it("should replace button", function(){
         var label1 = "Button1";
         var label2 = "Button2";
-
+        var label3 = "Button3";
+        var label4 = "Button4"
+        ;
         var tb = new Toolbar();
         tb.addButton(label1);
-        tb.replaceButton(label1, label2, {});
+        tb.addButton(label2);
+        tb.addButton(label3);
+
+        tb.replaceButton(label2, label4, {});
+        
         var res = tb.render();
-        expect(res.innerHTML).toMatch(label2);
-        expect(res.innerHTML).not.toMatch(label1);
+
+        var order = ["Button1", "Button4", "Button3"];
+
+        $(res).find("button").each(function(i) {
+            expect(this.innerHTML).toEqual(order[i]);
+        });
     });
 
      it("should return button", function(){
