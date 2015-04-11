@@ -114,4 +114,17 @@ describe("toolbar", function() {
 
         expect(button[0]).toEqual(name1);
     });
+
+    it("should button has icon", function() {
+        var name = "buton";
+        var icon = "glyphicon glyphicon-search";
+        var search = "span.glyphicon.glyphicon-search";
+
+        var tb = new Toolbar();
+        tb.addButton(name, {
+            icon: icon
+        });
+        var res = tb.render();
+        expect($(res).find(search).length).toBeGreaterThan(0);
+    });
 });

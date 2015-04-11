@@ -10,10 +10,17 @@ Toolbar.prototype.addButton = function(name, options) {
     var button = document.createElement("button");
     button.setAttribute("name", name);
 
-    if (options.label) {
-        button.innerHTML = options.label;
+    if (options.icon) {
+        var icon = document.createElement("span");
+        icon.className = options.icon;
+        button.appendChild(icon);
     }
 
+    if (options.label) {
+        var label = document.createTextNode(options.label);
+        button.appendChild(label);
+    }
+    
     button.onclick = options.callback;
     if (options.class_name !== undefined) {
         button.className = options.class_name
