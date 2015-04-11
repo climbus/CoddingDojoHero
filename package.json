@@ -22,6 +22,7 @@
     "grunt-jasmine-node": "^0.3.0",
     "grunt-jasmine-nodejs": "^1.0.2",
     "grunt-karma": "^0.10.1",
+    "grunt-selenium-webdriver": "^0.2.450",
     "jasmine": "^2.2.1",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",

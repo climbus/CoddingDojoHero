@@ -49,8 +49,13 @@ GenericBox.prototype.setNormalSize = function() {
 }
 
 GenericBox.prototype.maximize = function(callback) {
+    if (this.oldButton) {
+        this.toolbar.replaceButton("Powiększ", this.oldButton[0], this.oldButton[1]);
+    } else {
+        this.setNormalSize();
+    }
     this.oldButton = this.toolbar.getButton("Maksymalizuj");
-    this.setNormalSize();
+    
     $(this.element).css({
         "position": "absolute",
         "z-index": 100
@@ -73,8 +78,13 @@ GenericBox.prototype.maximize = function(callback) {
 }
 
 GenericBox.prototype.minimize = function() {
+    if (this.oldButton) {
+        this.toolbar.replaceButton("Zmniejsz", this.oldButton[0], this.oldButton[1]);
+    } else {
+        this.setNormalSize();
+    }
     this.oldButton = this.toolbar.getButton("Minimalizuj");
-    this.setNormalSize();
+    
     $(this.element).animate({
         "height": $(this.element).find(".nav-tabs").height()
     }, 300);
@@ -98,7 +108,7 @@ GenericBox.prototype.normalize = function() {
         "width": this.normalWidth,
         "height": this.normalHeight
     }, 300);   
-    if (this.oldButton !== undefined) {
+    if (this.oldButton) {
         var label;
         if (this.oldButton[0] === "Minimalizuj") {
             label = "Powiększ";
@@ -107,4 +117,5 @@ GenericBox.prototype.normalize = function() {
         }
         this.toolbar.replaceButton(label, this.oldButton[0], this.oldButton[1]);
     }
+    this.oldButton = null;
 }
