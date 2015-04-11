@@ -12,14 +12,14 @@ var GenericBox = function(element, title) {
 
     var box = this;
     this.toolbar.addButton("maximize", {
-        label: "Maksymalizuj",
+        icon: "glyphicon glyphicon-resize-full",
         "callback": function() {
             box.maximize();
         },
         "class_name": "btn btn-default"
     });
     this.toolbar.addButton("minimize", {
-        label: "Minimalizuj",
+        icon: "glyphicon glyphicon-import",
         "callback": function() {
             box.minimize();
         },
@@ -72,7 +72,7 @@ GenericBox.prototype.maximize = function(callback) {
    
     var box = this;
     this.toolbar.replaceButton("maximize", "normalize", {
-        label: "Zmniejsz",
+        icon: "glyphicon glyphicon-resize-small",
         "callback": function() {
             box.normalize();
         },
@@ -94,7 +94,7 @@ GenericBox.prototype.minimize = function() {
     var box = this;
     
     this.toolbar.replaceButton("minimize", "normalize", {
-        label: "Powiększ",
+        icon: "glyphicon glyphicon-export",
         "callback": function() {
             box.normalize();
         },

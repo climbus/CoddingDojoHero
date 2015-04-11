@@ -9,6 +9,7 @@ Toolbar.prototype.addButton = function(name, options) {
     options = options || {};
     var button = document.createElement("button");
     button.setAttribute("name", name);
+    button.setAttribute("type", "button");
 
     if (options.icon) {
         var icon = document.createElement("span");

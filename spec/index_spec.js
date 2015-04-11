@@ -87,7 +87,7 @@ describe("main page", function() {
       var exampleText = "";
 
       this.driver.executeScript('editorOne.editor.setValue("' + exampleText + '");').then(function() {
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zapisz")]')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="save"]')).click();
 
         driver.sleep(1000).then(function() {
             driver.executeScript("return editorOne.editor.getValue();").then(function(text) {
@@ -110,7 +110,7 @@ describe("main page", function() {
 
         driver.switchTo().window(current);
         driver.executeScript('editorOne.editor.setValue("");').then(function() {
-          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zapisz")]')).click();
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="save"]')).click();
           driver.sleep(1000).then(function() {
             driver.switchTo().frame("testFrame");
             driver.isElementPresent(webdriver.By.className("failed")).then(function(present) {
@@ -123,7 +123,7 @@ describe("main page", function() {
     });
 
     it("should maximize window", function(done) {
-      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="maximize"]')).click();
       driver.sleep(1000).then(function() {
         driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
           driver.manage().window().getSize().then(function(wsize) {
@@ -136,7 +136,7 @@ describe("main page", function() {
     });
 
     it("should minimize window", function(done) {
-      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="minimize"]')).click();
       driver.sleep(1000).then(function() {
         driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
           expect(size.height).toBeLessThan(100);
@@ -148,9 +148,9 @@ describe("main page", function() {
     it ("should normalize when maximized", function(done) {
       driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
         var normalSize = size;
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="maximize"]')).click();
         driver.sleep(500).then(function() {
-          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zmniejsz")]')).click();
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="normalize"]')).click();
           driver.sleep(500).then(function() {
             driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
               expect(size.width).toEqual(normalSize.width);
@@ -165,9 +165,9 @@ describe("main page", function() {
     it ("should normalize when minimized", function(done) {
       driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
         var normalSize = size;
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="minimize"]')).click();
         driver.sleep(500).then(function() {
-          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Powiększ")]')).click();
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="normalize"]')).click();
           driver.sleep(500).then(function() {
             driver.findElement(webdriver.By.xpath('//div[@id="one"]')).getSize().then(function(size) {
               expect(size.width).toEqual(normalSize.width);
@@ -180,11 +180,11 @@ describe("main page", function() {
     });
     
     it ("should has minimize button after normalize", function(done) {
-      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="minimize"]')).click();
       driver.sleep(500).then(function() {
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Powiększ")]')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="normalize"]')).click();
         driver.sleep(500).then(function() {
-          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).then(function(present){
+          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[@name="minimize"]')).then(function(present){
             expect(present).toBe(true);
             done();
           });
@@ -193,11 +193,11 @@ describe("main page", function() {
     });
 
     it ("should has maximize button after normalize", function(done) {
-      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="maximize"]')).click();
       driver.sleep(500).then(function() {
-        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zmniejsz")]')).click();
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="normalize"]')).click();
         driver.sleep(500).then(function() {
-          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).then(function(present){
+          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[@name="maximize"]')).then(function(present){
             expect(present).toBe(true);
             done();
           });
