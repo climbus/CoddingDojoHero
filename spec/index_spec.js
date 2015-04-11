@@ -179,6 +179,32 @@ describe("main page", function() {
       });
     });
     
+    it ("should has minimize button after normalize", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).click();
+      driver.sleep(500).then(function() {
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Powiększ")]')).click();
+        driver.sleep(500).then(function() {
+          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Minimalizuj")]')).then(function(present){
+            expect(present).toBe(true);
+            done();
+          });
+        });
+      });
+    });
+
+    it ("should has maximize button after normalize", function(done) {
+      driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).click();
+      driver.sleep(500).then(function() {
+        driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Zmniejsz")]')).click();
+        driver.sleep(500).then(function() {
+          driver.isElementPresent(webdriver.By.xpath('//div[@id="one"]/*/button[contains(.,"Maksymalizuj")]')).then(function(present){
+            expect(present).toBe(true);
+            done();
+          });
+        });
+      });
+    });
+
     afterEach(function() {
       // delete test files
       for (var i in files) {

@@ -5,29 +5,34 @@ var Toolbar = function() {
     this.element.className = "toolbar";
 }
 
-Toolbar.prototype.addButton = function(label, options) {
+Toolbar.prototype.addButton = function(name, options) {
     options = options || {};
     var button = document.createElement("button");
-    button.innerHTML = label;
+    button.setAttribute("name", name);
+
+    if (options.label) {
+        button.innerHTML = options.label;
+    }
+
     button.onclick = options.callback;
     if (options.class_name !== undefined) {
         button.className = options.class_name
     }
 
     if (options.position !== undefined) {
-        this.buttons.splice(options.position, 0, [label, options]);
+        this.buttons.splice(options.position, 0, [name, options]);
         this.element.insertBefore(button, this.element.children[options.position]);
     } else {
-        this.buttons.push([label, options]);
+        this.buttons.push([name, options]);
         this.element.appendChild(button);
     }
     return button;
 }
 
-Toolbar.prototype.replaceButton = function(oldLabel, newLabel, options) {
+Toolbar.prototype.replaceButton = function(oldName, newName, options) {
     var i = 0;
     for (i in this.buttons) {
-        if (this.buttons[i][0] === oldLabel) {
+        if (this.buttons[i][0] === oldName) {
             break;
         }
     }
@@ -35,12 +40,12 @@ Toolbar.prototype.replaceButton = function(oldLabel, newLabel, options) {
     this.previousButton = [this.buttons[i], this.element.children[i]];
     this.buttons.splice(i, 1);
     this.element.removeChild(this.element.children[i]);
-    this.addButton(newLabel, options);
+    this.addButton(newName, options);
 }
 
-Toolbar.prototype.getButton = function(label) {
+Toolbar.prototype.getButton = function(name) {
     for (var i in this.buttons) {
-        if (this.buttons[i][0] === label) {
+        if (this.buttons[i][0] === name) {
             return this.buttons[i];
         }
     }

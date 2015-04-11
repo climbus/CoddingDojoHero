@@ -97,12 +97,7 @@ describe("generic box", function() {
     it("should has maximize button", function() {
         var found = false;
         var box = new GenericBox(element);
-        for (var i in box.toolbar.element.childNodes) {
-            if (box.toolbar.element.childNodes[i].innerHTML === "Maksymalizuj") {
-                found = true;
-            }
-        }
-        expect(found).toBe(true);
+        expect($(element).find("button[name='maximize']").length).toBeGreaterThan(0);
     });
 
     it("should remember normal size", function() {
@@ -121,14 +116,14 @@ describe("generic box", function() {
         spyOn(box, "maximize");
 
         document.body.appendChild(element);
-        $("button:contains('Maksymalizuj')").click();
+        $(element).find("button[name='maximize']").click();
         expect(box.maximize.calls.any()).toBe(true);
     });
 
     it("should has minimize button", function() {
         var box = new GenericBox(element);
         document.body.appendChild(element);
-        expect($("button:contains('Minimalizuj')").length).toBeGreaterThan(0);
+        expect($(element).find("button[name='minimize']").length).toBeGreaterThan(0);
     });
 
     it("button minimize should minimize box", function() {
@@ -136,7 +131,7 @@ describe("generic box", function() {
         spyOn(box, "minimize");
         document.body.appendChild(element);
 
-        $("button:contains('Minimalizuj')").click();
+        $(element).find("button[name='minimize']").click();
 
         expect(box.minimize.calls.any()).toBe(true);
     });    
@@ -146,7 +141,7 @@ describe("generic box", function() {
         document.body.appendChild(element);
         box.maximize();
         
-        expect($("button:contains('Zmniejsz')").length).toBeGreaterThan(0);
+        expect($("button[name='normalize']").length).toBeGreaterThan(0);
     });
 
     it("when minimized has normalize button", function() {
@@ -154,7 +149,7 @@ describe("generic box", function() {
         document.body.appendChild(element);
         box.maximize();
         
-        expect($("button:contains('Powiększ')").length).toBeGreaterThan(0);
+        expect($("button[name='normalize']").length).toBeGreaterThan(0);
     });
 
     it("when maximized can normalize", function(done) {
@@ -204,7 +199,7 @@ describe("generic box", function() {
         setTimeout(function() {  
             box.normalize();
             setTimeout(function() {
-                expect($("button:contains('Minimalizuj')").length).toBeGreaterThan(0);
+                expect($(element).find("button[name='minimize']").length).toBeGreaterThan(0);
                 expectations += 1;
                 if (expectations === 2) {
                     done();
@@ -216,7 +211,7 @@ describe("generic box", function() {
         setTimeout(function() {  
             box.normalize();
             setTimeout(function() {
-                expect($("button:contains('Maksymalizuj')").length).toBeGreaterThan(0);
+                expect($(element).find("button[name='maximize']").length).toBeGreaterThan(0);
                 expectations += 1;
                 if (expectations === 2) {
                     done();
@@ -231,10 +226,10 @@ describe("generic box", function() {
 
         document.body.appendChild(element);
 
-        $("button:contains('Minimalizuj')").click();
+        $(element).find("button[name='minimize']").click();
 
         setTimeout(function(){
-            $("button:contains('Powiększ')").click();
+            $(element).find("button[name='normalize']").click();
             expect(box.normalize.calls.any()).toBe(true);
             done();
         }, 500);
@@ -246,10 +241,10 @@ describe("generic box", function() {
 
         document.body.appendChild(element);
 
-        $("button:contains('Maksymalizuj')").click();
+        $(element).find("button[name='maximize']").click();
 
         setTimeout(function(){
-            $("button:contains('Zmniejsz')").click();
+            $(element).find("button[name='normalize']").click();
             expect(box.normalize.calls.any()).toBe(true);
             done();
         }, 500);

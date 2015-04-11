@@ -78,11 +78,7 @@ describe("codding box", function() {
         it("button should be clicking and saving content", function() {
             var filename = exampleFileName;
             var box = new CoddingBox(element, filename);
-            for (var i in element.getElementsByTagName("button")) {
-                if (element.getElementsByTagName("button")[i].innerHTML == "Zapisz") {
-                    $(element.getElementsByTagName("button")[i]).click();
-                }    
-            }
+            $("button[name='save']").click();
             
             expect(jQuery.post.calls.any()).toBe(true);
         });

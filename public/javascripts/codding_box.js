@@ -62,7 +62,8 @@ CoddingBox.prototype.createEditor = function() {
 
 CoddingBox.prototype.createButtons = function() {
     var box = this;
-    var button = this.toolbar.addButton("Zapisz", {
+    var button = this.toolbar.addButton("save", {
+        label: "Zapisz",
         class_name: "btn btn-default",
         callback: function(elm) {
             box.save();
