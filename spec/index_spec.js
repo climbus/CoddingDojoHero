@@ -21,6 +21,9 @@ module.exports = function(driver) {
   // TODO: move to helpers
   function copyFiles(dirname) {
     var srcDir = dirName + "template/";
+    
+    createDir(dirName);
+
     if (dirname != undefined) {
       srcDir += dirname + "/";
     }
