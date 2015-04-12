@@ -195,6 +195,31 @@ module.exports = function(driver) {
         });
       });
 
+      it("should show console", function(done) {
+        driver.isElementPresent(webdriver.By.xpath('//div[@id="console"]')).then(function(present) {
+          expect(present).toBe(true);
+          driver.findElement(webdriver.By.xpath('//div[@id="console"]/*/*/a[@class="titleElm"]')).getText().then(function(txt) {
+            expect(txt).toBe("Konsola");
+            done(); 
+          }); 
+        });           
+      });
+
+      it("should show error", function(done) {
+        var exampleText = "aaaa";
+
+        driver.executeScript('editorOne.editor.setValue("' + exampleText + '");').then(function() {
+          driver.findElement(webdriver.By.xpath('//div[@id="one"]/*/button[@name="save"]')).click();
+
+          driver.sleep(1000).then(function() {
+              driver.findElement(webdriver.By.xpath('//div[@id="console"]')).getText().then(function(txt){
+                expect(txt).toMatch("ReferenceError");
+                done(); 
+              });            
+          });
+        });
+      });
+
       afterEach(function() {
         // delete test files
         for (var i in files) {

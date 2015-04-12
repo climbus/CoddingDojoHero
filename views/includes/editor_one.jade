@@ -1,8 +1,10 @@
 script(type='text/javascript').
     var editorOne = new CodingBox("one", "main_file.js");
     editorOne.onsave = function() {
+       consoleBox.clear();
        var frame = document.getElementById("testFrame");
        if (frame) {
          frame.contentWindow.location.reload(true);
+         
        }
      };

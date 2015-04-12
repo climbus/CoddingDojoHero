@@ -22,12 +22,12 @@ div#editorOne {
     height: 100%;
 }
 
-#three, #four {
-    top: 0px;
-    height:800px;
+#four {
+  margin-top: 10px;
+  height: 800px;
 }
 
-#one, #two {
+#one, #two, #console {
   position: relative;
 }
 
@@ -84,4 +84,18 @@ div#editorOne {
 
 h1 {
   padding-left: 10px;
+}
+
+.error {
+  color:red;
+}
+
+#console div.content div {
+  margin: 10px;
+}
+
+#console div.content {
+  padding: 10px;
+  border: solid 1px #ddd;
+  border-top: none;
 }

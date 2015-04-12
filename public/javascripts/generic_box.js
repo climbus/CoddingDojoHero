@@ -33,7 +33,7 @@ var GenericBox = function(element, title) {
     titleElm.className = "active";
     tab.appendChild(titleElm);
     var a = document.createElement("a");
-    a.innerText = this.title;
+    a.innerHTML = this.title;
     a.className = "titleElm";
     titleElm.appendChild(a);
 
@@ -106,7 +106,8 @@ GenericBox.prototype.normalize = function() {
     $(this.element).css({
         "position": "relative",
         "top": 0,
-        "left": 0
+        "left": 0,
+        "z-index": 10
     });
     $(this.element).animate({
         "width": this.normalWidth,
