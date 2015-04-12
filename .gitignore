@@ -1,3 +1,4 @@
 node_modules/
 public/test_data/
 public/test_data2/
+phantomjsdriver.log
