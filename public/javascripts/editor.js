@@ -17,5 +17,16 @@ var Editor = function(element, content, commands, box) {
             commands.save.call(box);
         }
     });
+    this.ace.commands.addCommand({
+            name: 'maximize',
+            bindKey: {
+            win: 'Ctrl-Q',
+            mac: 'Command-Q',
+            sender: 'editor|cli'
+        },
+        exec: function(env, args, request) {
+            commands.maximize.call(box);
+        }
+    });
     return this.ace;
 }

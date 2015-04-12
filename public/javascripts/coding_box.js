@@ -53,7 +53,7 @@ CodingBox.prototype.createEditor = function() {
 
     $(editorElement).css({width: "100%", height: "100%"});
 
-    editor = new Editor(editorElement, "", {save: this.save}, this);
+    editor = new Editor(editorElement, "", {save: this.save, maximize: function() {console.log("aaaa");}}, this);
     editorElement.style.fontSize='20px';
 
     this.editor = editor;
